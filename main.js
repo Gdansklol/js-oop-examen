@@ -14,11 +14,19 @@ class Animal {
 
     createPetElement() {
         const petList = document.getElementById("pet-list");
-
+    
+        const imageMap = {
+            cat: "tamagochi-1.png",
+            dog: "tamagochi-2.png",
+            rabbit: "tamagochi-3.png",
+            parrot: "tamagochi-4.png"
+        };
+        const imageFile = imageMap[this.animalType] || "default.png";
+    
         this.petElement = document.createElement("li");
         this.petElement.classList.add("pet-card");
         this.petElement.innerHTML = `
-            <img src="images/${this.animalType}.png" alt="${this.animalType}">
+            <img src="images/${imageFile}" alt="${this.animalType}">
             <h3>${this.name} (${this.animalType})</h3>
             <progress class="energy-bar" max="100" value="${this.energy}"></progress>
             <p>Energy: <span class="energy">${this.energy}</span></p>
@@ -31,7 +39,7 @@ class Animal {
             <button onclick="Game.pets['${this.name}'].eat()">Eat</button>
         `;
         petList.appendChild(this.petElement);
-    }
+    }    
 
     updateUI() {
         this.petElement.querySelector(".energy").textContent = this.energy;
