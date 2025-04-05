@@ -177,6 +177,17 @@ class Animal {
   }
 }
 
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const topLayer = document.querySelector('.topLayer');
+    if (topLayer) {
+      topLayer.style.animationPlayState = 'paused';
+      topLayer.style.opacity = '0'; // 
+    }
+  }, 30000); // 30초 = 30000ms
+});
+
+
 class Game {
   static pets = {};
 

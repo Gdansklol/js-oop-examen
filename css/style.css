@@ -108,16 +108,16 @@ body {
   }
   
   .cat-bg {
-    background-image: url('images/egg-cat.png');
+    background-image: url('../images/egg-cat.png');
   }
   .dog-bg {
-    background-image: url('images/egg-dog.png');
+    background-image: url('../images/egg-dog.png');
   }
   .rabbit-bg {
-    background-image: url('images/egg-rabbit.png');
+    background-image: url('../images/egg-rabbit.png');
   }
   .parrot-bg {
-    background-image: url('images/egg-parrot.png');
+    background-image: url('../images/egg-parrot.png');
   }
   
 .log-item.warning {
@@ -242,4 +242,175 @@ body {
 .log-item.log-parrot {
   color: #af0ea1;   
   font-weight: bold;
+}
+
+.box {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box h2 {
+  color: #ffffff;
+  font-size: 5em;
+  font-weight: 600;
+  /* position: relative; */
+  letter-spacing: 0.0.8em;
+  text-shadow: 0 0 10px #00b3ff,
+  0 0 20px #00b3ff,
+  0 0 40px #00b3ff,
+  0 0 80px #00b3ff,
+  0 0 120px #00b3ff;
+}
+
+.lightbar {
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 10px;
+  height: 100%;
+  border-radius: 10px;
+  background: #ffffff;
+  z-index: 2;
+  box-shadow: 0 0 10px #00b3ff,
+  0 0 20px #00b3ff,
+  0 0 40px #00b3ff,
+  0 0 80px #00b3ff,
+  0 0 120px #00b3ff;
+  animation: animatelightbar 5s linear infinite;
+}
+
+@keyframes animatelightbar {
+  0%,
+  5% {
+      transform: scaleY(0) translateX(0);
+  }
+  10% {
+      transform: scaleY(1) translateX(0);
+  }
+  90% {
+      transform: scaleY(1) translateX(calc(600px -10px));
+  }
+  95%,
+  100% {
+      transform: scaleY(1) translateX(calc(600px -10px));
+  }
+}
+
+.topLayer {
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: #0c044d;
+  animation: animateTopLayer 10s linear infinite;
+}
+
+@keyframes animateTopLayer {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.header .box {
+  width: 100%;
+  height: auto;
+  padding: 20px 10px;
+}
+
+.box h2 {
+  font-size: 2em;
+  letter-spacing: 0.1em;
+}
+
+#pet-creator {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+#pet-creator select,
+#pet-creator button {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+@media (min-width: 600px) {
+  .box h2 {
+    font-size: 3em;
+    letter-spacing: 0.2em;
+  }
+
+  #pet-creator {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  #pet-creator select,
+  #pet-creator button {
+    width: auto;
+    min-width: 160px;
+    font-size: 1.1rem;
+    padding: 10px 14px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .box h2 {
+    font-size: 5em;
+    letter-spacing: 0.3em;
+  }
+
+  #pet-creator select,
+  #pet-creator button {
+    font-size: 1.2rem;
+    padding: 12px 18px;
+  }
+}
+
+.game-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.5em;
+  font-weight: 600;
+  text-shadow: 0 0 10px #00b3ff,
+               0 0 20px #00b3ff,
+               0 0 40px #00b3ff,
+               0 0 80px #00b3ff;
+  color: #ffffff;
+  margin: 0 auto;
+}
+
+.game-title .line {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.game-title span {
+  white-space: nowrap;
+}
+
+.topLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0c044d;
+  animation: animateTopLayer 10s linear infinite;
+  animation-play-state: running;
 }
