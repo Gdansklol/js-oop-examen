@@ -16,6 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 addBtn.addEventListener('click', () => {
+    if (tamagotchis.size >= 4) return; // limit to max 4
+
     const name = findUniqueName(Array.from(tamagotchis.keys()));
     const species = typeSelect.value;
     const wrapper = createTamagotchiWrapper(name, species);
@@ -29,14 +31,17 @@ addBtn.addEventListener('click', () => {
 });
 
 
+
 function createTamagotchiWrapper(name, species) {
     const wrapper = document.createElement('div');
     wrapper.className = 'tamagotchi';
     wrapper.id = name;
     wrapper.appendChild(createTamagotchiTitle(name, species));
+    wrapper.appendChild(createStatusPanel(name));
     wrapper.appendChild(createTamagotchiImage());
     wrapper.appendChild(createActionRow(['Feed', 'Play', 'Sleep']));
     wrapper.appendChild(createActionRow(['Log', 'Delete']));
+    //wrapper.appendChild(createLogPane());
     return wrapper;
 }
 
@@ -47,6 +52,19 @@ function createTamagotchiTitle(name, species) {
     return title;
 }
 
+function createStatusPanel(id) {
+    const panel = document.createElement('div');
+    panel.className = 'status-panel';
+
+    panel.innerHTML = `
+    <div class="status-line"><label>Age:</label><span id="${id}-age">0</span></div>
+    <div class="status-line"><label>Hunger:</label><div class="bar"><div id="${id}-hunger" class="bar-fill"></div></div></div>
+    <div class="status-line"><label>Energy:</label><div class="bar"><div id="${id}-energy" class="bar-fill"></div></div></div>
+    <div class="status-line"><label>Happiness:</label><div class="bar"><div id="${id}-happiness" class="bar-fill"></div></div></div>
+  `;
+
+    return panel;
+}
 
 function createTamagotchiImage() {
     const img = document.createElement('img');
@@ -79,14 +97,36 @@ function hookButtonsToTamagotchi(wrapper, tamagotchi) {
             btn.onclick = () => tamagotchi.play();
         } else if (label === 'sleep') {
             btn.onclick = () => tamagotchi.sleep();
-        } else if (label === 'log') {
-            btn.onclick = () => tamagotchi.log();
         } else if (label === 'delete') {
             btn.onclick = () => {
                 tamagotchi.delete();
                 wrapper.remove();
                 tamagotchis.delete(tamagotchi.id);
             };
+        } else if (label === 'log') {
+            btn.onclick = () => {
+                const logDiv = wrapper.querySelector('.log-container');
+                const isVisible = logDiv.style.display === 'block';
+                logDiv.style.display = isVisible ? 'none' : 'block';
+
+                if (!isVisible) {
+                    logDiv.innerHTML = '';
+                    const entries = tamagotchi.getLog();
+                    entries.forEach(entry => {
+                        const div = document.createElement('div');
+                        div.className = 'log-entry';
+                        div.textContent = `[${entry.timestamp}] ${entry.text}`;
+                        logDiv.appendChild(div);
+                    });
+                }
+            };
         }
     });
+
+    function createLogPane() {
+        const div = document.createElement('div');
+        div.className = 'log-container';
+        div.style.display = 'none';
+        return div;
+    }
 }

@@ -1,9 +1,16 @@
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
 .tamagotchi {
-    padding: 1rem;
+    flex: 0 0 200px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background: white;
-    width: 200px;
+    padding: 1rem;
     text-align: center;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
@@ -41,4 +48,36 @@
 
 .button-row button:hover {
     background: #e0e0e0;
+}
+
+.status-panel {
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.status-line {
+    margin-bottom: 0.3rem;
+}
+
+.status-line label {
+    display: inline-block;
+    width: 70px;
+}
+
+.bar {
+    display: inline-block;
+    width: 100px;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #4caf50;
+    width: 100%;
+    transition: width 0.3s;
 }
