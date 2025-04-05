@@ -21,8 +21,13 @@ addBtn.addEventListener('click', () => {
     const wrapper = createTamagotchiWrapper(name, species);
 
     container.appendChild(wrapper);
-    tamagotchis.set(name, { name, species });
+
+    const tama = new Tamagotchi(wrapper, species);
+    tamagotchis.set(name, tama);
+
+    hookButtonsToTamagotchi(wrapper, tama);
 });
+
 
 function createTamagotchiWrapper(name, species) {
     const wrapper = document.createElement('div');
@@ -62,3 +67,26 @@ function createActionRow(labels) {
     return row;
 }
 
+function hookButtonsToTamagotchi(wrapper, tamagotchi) {
+    const buttons = wrapper.querySelectorAll('button');
+
+    buttons.forEach(btn => {
+        const label = btn.textContent.toLowerCase();
+
+        if (label === 'feed') {
+            btn.onclick = () => tamagotchi.feed();
+        } else if (label === 'play') {
+            btn.onclick = () => tamagotchi.play();
+        } else if (label === 'sleep') {
+            btn.onclick = () => tamagotchi.sleep();
+        } else if (label === 'log') {
+            btn.onclick = () => tamagotchi.log();
+        } else if (label === 'delete') {
+            btn.onclick = () => {
+                tamagotchi.delete();
+                wrapper.remove();
+                tamagotchis.delete(tamagotchi.id);
+            };
+        }
+    });
+}

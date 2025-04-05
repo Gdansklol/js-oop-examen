@@ -18,5 +18,36 @@ function findUniqueName(existingNames) {
     }
 }
 
+class Tamagotchi {
+    constructor(wrapper, species) {
+        this.wrapper = wrapper;
+        this.id = wrapper.id;
+        this.species = species;
+        this.image = wrapper.querySelector('img');
+        this.image.src = `images/${this.species}/idle.png`;
+    }
+
+    feed() {
+        console.log(`${this.id} is being fed`);
+    }
+
+    play() {
+        console.log(`${this.id} is playing`);
+    }
+
+    sleep() {
+        console.log(`${this.id} is sleeping`);
+    }
+
+    log() {
+        console.log(`${this.id}'s log`);
+    }
+
+    delete() {
+        console.log(`${this.id} has been deleted`);
+    }
+}
+
 window.findUniqueName = findUniqueName;
 window.speciesList = speciesList;
+window.Tamagotchi = Tamagotchi;
