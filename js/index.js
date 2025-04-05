@@ -28,6 +28,7 @@ addBtn.addEventListener('click', () => {
     tamagotchis.set(name, tama);
 
     hookButtonsToTamagotchi(wrapper, tama);
+    tama.onStatus = (status) => updateStatusPanel(status);
 });
 
 
@@ -41,7 +42,7 @@ function createTamagotchiWrapper(name, species) {
     wrapper.appendChild(createTamagotchiImage());
     wrapper.appendChild(createActionRow(['Feed', 'Play', 'Sleep']));
     wrapper.appendChild(createActionRow(['Log', 'Delete']));
-    //wrapper.appendChild(createLogPane());
+    wrapper.appendChild(createLogPane());
     return wrapper;
 }
 
@@ -104,12 +105,16 @@ function hookButtonsToTamagotchi(wrapper, tamagotchi) {
                 tamagotchis.delete(tamagotchi.id);
             };
         } else if (label === 'log') {
+            btn.textContent = 'Show log'; // initial label
+
             btn.onclick = () => {
                 const logDiv = wrapper.querySelector('.log-container');
                 const isVisible = logDiv.style.display === 'block';
                 logDiv.style.display = isVisible ? 'none' : 'block';
+                btn.textContent = isVisible ? 'Show log' : 'Hide log';
 
                 if (!isVisible) {
+                    // Clear and repopulate the log view
                     logDiv.innerHTML = '';
                     const entries = tamagotchi.getLog();
                     entries.forEach(entry => {
@@ -121,12 +126,23 @@ function hookButtonsToTamagotchi(wrapper, tamagotchi) {
                 }
             };
         }
-    });
 
-    function createLogPane() {
-        const div = document.createElement('div');
-        div.className = 'log-container';
-        div.style.display = 'none';
-        return div;
-    }
+    });
+}
+
+function createLogPane() {
+    const div = document.createElement('div');
+    div.className = 'log-container';
+    div.style.display = 'none';
+    return div;
+}
+
+function updateStatusPanel(status) {
+    const get = (key) => document.getElementById(`${status.id}-${key}`);
+    if (!get('age')) return;
+
+    get('age').textContent = status.age;
+    get('hunger').style.width = `${(1 - status.hunger / 10) * 100}%`;
+    get('energy').style.width = `${(status.energy / 10) * 100}%`;
+    get('happiness').style.width = `${(status.happiness / 10) * 100}%`;
 }

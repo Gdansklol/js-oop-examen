@@ -50,7 +50,7 @@ class Tamagotchi {
             this.hunger = Math.min(10, this.hunger + 0.1);
             this.energy = Math.max(0, this.energy - 0.05);
             this.happiness = Math.max(0, this.happiness - 0.03);
-            this.updateStatusUI();
+            this.onStatus?.(this.getStatus());
             this.checkAlive();
         }, 1000);
     }
@@ -98,17 +98,18 @@ class Tamagotchi {
         this.alive = false;
     }
 
-    updateStatusUI() {
-        const get = (id) => document.getElementById(`${this.id}-${id}`);
-        if (!get('age')) return;
-
-        get('age').textContent = this.age;
-        get('hunger').style.width = `${(1 - this.hunger / 10) * 100}%`;
-        get('energy').style.width = `${(this.energy / 10) * 100}%`;
-        get('happiness').style.width = `${(this.happiness / 10) * 100}%`;
+    getStatus() {
+        return {
+            id: this.id,
+            age: this.age,
+            hunger: this.hunger,
+            energy: this.energy,
+            happiness: this.happiness,
+            alive: this.alive
+        };
     }
 
-    addLogEntry(text) {
+    log(text) {
         const timestamp = new Date().toLocaleTimeString();
         this.logEntries.push({ text, timestamp });
 
