@@ -6,16 +6,8 @@ const imageMap = {
 };
 
 const nameSuggestions = [
-  "Tamagotchi",
-  "Mametchi",
-  "Kuchipatchi",
-  "Memetchi",
-  "Gozarutchi",
-  "Lovelitchi",
-  "Maskutchi",
-  "Nyatchi",
-  "Sebiretchi",
-  "Mimitchi"
+  "Tamagotchi", "Mametchi", "Kuchipatchi", "Memetchi", "Gozarutchi",
+  "Lovelitchi", "Maskutchi", "Nyatchi", "Sebiretchi", "Mimitchi"
 ];
 
 function populateNameOptions() {
@@ -43,7 +35,6 @@ function getElapsedTime(startTime) {
   const totalSeconds = Math.floor((Date.now() - startTime) / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-
   return minutes > 0 ? `${minutes} min ${seconds} sec` : `${seconds} sec`;
 }
 
@@ -110,7 +101,6 @@ class Animal {
   startDecay() {
     this.decayInterval = setInterval(() => {
       if (!this.alive) return;
-
       this.energy = Math.max(this.energy - 5, 0);
       this.fullness = Math.max(this.fullness - 5, 0);
       this.happiness = Math.max(this.happiness - 5, 0);
@@ -126,15 +116,11 @@ class Animal {
     clearInterval(this.decayInterval);
     this.alive = false;
     this.petElement.remove();
-
-    const timestamp = new Date().toLocaleString();
     const timeElapsed = getElapsedTime(this.startTime);
     const history = this.activities.map(item => `• ${item}`).join("<br>");
-    const message = `${this.name} ran away at ${timestamp}!<br>History:<br>${history}<br>• Ran away (${timeElapsed})`;
-
+    const message = `${this.name} ran away!<br>History:<br>${history}<br>• Ran away (${timeElapsed})`;
     const colorClass = `log-${this.animalType}`;
     logActivity(message, colorClass);
-
     Game.removePet(this.name);
   }
 
@@ -177,17 +163,6 @@ class Animal {
   }
 }
 
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const topLayer = document.querySelector('.topLayer');
-    if (topLayer) {
-      topLayer.style.animationPlayState = 'paused';
-      topLayer.style.opacity = '0'; // 
-    }
-  }, 30000); // 30초 = 30000ms
-});
-
-
 class Game {
   static pets = {};
 
@@ -210,11 +185,21 @@ class Game {
   }
 
   static resetGame() {
-    Object.values(Game.pets).forEach((pet) => clearInterval(pet.decayInterval));
+    Object.values(Game.pets).forEach((pet) => {
+      clearInterval(pet.decayInterval);
+      if (pet.petElement) pet.petElement.remove();
+    });
+
+    Game.pets = {};
     document.getElementById("pet-list").innerHTML = "";
     document.getElementById("log-list").innerHTML = "";
-    Game.pets = {};
-    logActivity("Game has been reset!", "warning");
+    document.getElementById("falling-muffins-container").innerHTML = "";
+
+    const modal = document.getElementById("trophyModal");
+    if (modal) {
+      modal.classList.add("hidden");
+      modal.style.display = "none";
+    }
   }
 }
 
@@ -252,3 +237,13 @@ function showTrophyCelebration(winnerName) {
     document.getElementById("falling-muffins-container").innerHTML = "";
   }, 5000);
 }
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const topLayer = document.querySelector('.topLayer');
+    if (topLayer) {
+      topLayer.style.animationPlayState = 'paused';
+      topLayer.style.opacity = '0';
+    }
+  }, 30000);
+});
