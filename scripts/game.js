@@ -46,15 +46,16 @@ export class Animal {
 
     this.logList = this.petElement.querySelector(".pet-log");
     const toggleBtn = this.petElement.querySelector(".toggle-log-btn");
+
     toggleBtn.addEventListener("click", () => {
-      const isHidden = this.logList.classList.toggle("hidden");
-      toggleBtn.textContent = isHidden ? "Show Log" : "Hide Log";
-    });
+    const isNowHidden = this.logList.classList.toggle("hidden");
+    toggleBtn.textContent = isNowHidden ? "Show Log" : "Hide Log";
+  });
 
     this.petElement.querySelector(".nap-btn").addEventListener("click", () => this.nap());
     this.petElement.querySelector(".play-btn").addEventListener("click", () => this.play());
     this.petElement.querySelector(".eat-btn").addEventListener("click", () => this.eat());
-  }
+}
 
   updateUI() {
     this.petElement.querySelector(".energy").textContent = this.energy;

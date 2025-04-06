@@ -1,0 +1,145 @@
+@keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  
+  .animate-bounce {
+    animation: bounce 0.6s ease-in-out;
+  }
+  
+  @keyframes popup {
+    0%   { transform: scale(0.3) translate(-50%, -50%); opacity: 0; }
+    100% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+  }
+  
+  @keyframes fallZigzag {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(50px); }
+    50% { transform: translateX(-50px); }
+    75% { transform: translateX(30px); }
+    100% { top: 100vh; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  @keyframes animateTopLayer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+  
+  @keyframes animatelightbar {
+    0%, 5% { transform: scaleY(0) translateX(0); }
+    10% { transform: scaleY(1) translateX(0); }
+    90% { transform: scaleY(1) translateX(calc(600px -10px)); }
+    95%, 100% { transform: scaleY(1) translateX(calc(600px -10px)); }
+  }
+  
+  .falling-muffin {
+    position: fixed;
+    top: -50px;
+    font-size: 32px;
+    animation: fallZigzag 3s linear forwards;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  
+  #trophy-modal {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: gold;
+    color: black;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    font-size: 24px;
+    z-index: 3000;
+    animation: popup 0.5s ease-in-out;
+  }
+  
+  .modal.hidden {
+    display: none;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal-content.trophy {
+    background: #fff;
+    padding: 2rem;
+    font-size: 1.4rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px gold;
+    animation: fadeIn 0.8s ease;
+  }
+  
+  .header .box {
+    width: 100%;
+    height: auto;
+    padding: 20px 10px;
+  }
+  
+  .box {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .box h2 {
+    color: #ffffff;
+    font-size: 5em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px #00b3ff,
+                 0 0 20px #00b3ff,
+                 0 0 40px #00b3ff,
+                 0 0 80px #00b3ff,
+                 0 0 120px #00b3ff;
+  }
+  
+  .lightbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    border-radius: 10px;
+    background: #ffffff;
+    z-index: 2;
+    box-shadow: 0 0 10px #00b3ff,
+                 0 0 20px #00b3ff,
+                 0 0 40px #00b3ff,
+                 0 0 80px #00b3ff,
+                 0 0 120px #00b3ff;
+    animation: animatelightbar 5s linear infinite;
+  }
+  
+  .topLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0c044d;
+    animation: animateTopLayer 10s linear infinite;
+    animation-play-state: running;
+  }
+  
