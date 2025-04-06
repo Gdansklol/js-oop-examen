@@ -10,19 +10,14 @@ export class Animal {
     this.alive = true;
     this.startTime = Date.now();
     this.activities = [];
-    this.trophyShown = false;
     this.createPetElement();
     this.startDecay();
   }
 
   static generateName() {
     const availableNames = nameSuggestions.filter(name => !Game.pets[name]);
-    if (availableNames.length === 0) {
-      alert("All names are taken!");
-      return "Unnamed";
-    }
-    const randomIndex = Math.floor(Math.random() * availableNames.length);
-    return availableNames[randomIndex];
+    if (availableNames.length === 0) return "Unnamed";
+    return availableNames[Math.floor(Math.random() * availableNames.length)];
   }
 
   createPetElement() {
@@ -73,9 +68,9 @@ export class Animal {
   startDecay() {
     this.decayInterval = setInterval(() => {
       if (!this.alive) return;
-      this.energy = Math.max(this.energy - 5, 0);
-      this.fullness = Math.max(this.fullness - 5, 0);
-      this.happiness = Math.max(this.happiness - 5, 0);
+      this.energy = Math.max(this.energy - 15, 0);
+      this.fullness = Math.max(this.fullness - 15, 0);
+      this.happiness = Math.max(this.happiness - 15, 0);
       this.updateUI();
       if (this.energy === 0 || this.fullness === 0 || this.happiness === 0) {
         this.runAway();
@@ -153,10 +148,9 @@ export class Game {
 
   static removePet(name) {
     delete Game.pets[name];
-    const remainingPets = Object.keys(Game.pets);
-    if (remainingPets.length === 1) {
-      const winner = remainingPets[0];
-      setTimeout(() => showTrophyCelebration(winner), 1000);
+    const remaining = Object.keys(Game.pets);
+    if (remaining.length === 1) {
+      setTimeout(() => showTrophyCelebration(remaining[0]), 1000);
     }
   }
 
@@ -177,17 +171,16 @@ export class Game {
   }
 }
 
-function showTrophyCelebration(winnerName) {
+function showTrophyCelebration(name) {
   const modal = document.getElementById("trophyModal");
-  const messageBox = modal.querySelector(".modal-content");
-  messageBox.textContent = `🏆 Hurra! ${winnerName} är den sista Tamagotchin kvar!`;
+  modal.querySelector(".modal-content").textContent = `🏆 Hurra! ${name} är den sista Tamagotchin kvar!`;
   modal.classList.remove("hidden");
   modal.style.display = "flex";
 
   for (let i = 0; i < 10; i++) {
     const muffin = document.createElement("div");
     muffin.classList.add("falling-muffin");
-    muffin.textContent = "🧁";
+    muffin.textContent = "🧁 🧁 🧁 🧁 🧁";
     muffin.style.left = `${Math.random() * 90 + 5}%`;
     muffin.style.animationDelay = `${i * 0.3}s`;
     document.getElementById("falling-muffins-container").appendChild(muffin);
@@ -199,4 +192,3 @@ function showTrophyCelebration(winnerName) {
     document.getElementById("falling-muffins-container").innerHTML = "";
   }, 5000);
 }
-

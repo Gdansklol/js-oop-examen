@@ -1,49 +1,26 @@
+import {AnimationPlayer} from'./AnimationPlayer.js';
+
 const FRAMES = 15;
 const MAX_HAPPINESS = 50;
 const MAX_FULLNESS = 50;
 const MAX_ENERGY = 50;
 
-const nameSuggestions = [
-    "Tamagotchi", "Mametchi", "Kuchipatchi", "Memetchi", "Gozarutchi",
-    "Lovelitchi", "Maskutchi", "Nyatchi", "Sebiretchi", "Mimitchi"
-];
-
-const speciesList = ["dog", "cat", "dragon", "alien"];
-
-function findUniqueName(existingNames) {
-    const shuffled = [...nameSuggestions].sort(() => Math.random() - 0.5);
-
-    for (const name of shuffled) {
-        if (!existingNames.includes(name)) return name;
-    }
-
-    let i = 1;
-    while (true) {
-        const fallback = `Tama${i}`;
-        if (!existingNames.includes(fallback)) return fallback;
-        i++;
-    }
-}
-
-class Tamagotchi {
-    constructor(wrapper, species) {
-        this.wrapper = wrapper;
-        this.id = wrapper.id;
+export class Tamagotchi {
+    constructor(id, species) {
+        this.id = id;
         this.name = this.id;
         this.species = species;
-        this.image = wrapper.querySelector('img');
-        this.image.src = `img/${this.species}/idle.png`;
+
+        this.animations = AnimationPlayer.getAnimations(this.species);
 
         this.age = 0;
         this.energy = MAX_ENERGY;
         this.fullness = MAX_FULLNESS;
         this.happiness = MAX_HAPPINESS;
         this.alive = true;
+        this.busy = false;
 
         this.logEntries = [];
-        this.onLog = null;
-        this.onStatus = null;
-
         this.startLifeTimer();
     }
 
@@ -93,9 +70,13 @@ class Tamagotchi {
         if (this.energy <= 0 || this.fullness <= 0 || this.happiness <= 0) {
             this.alive = false;
             clearInterval(this.lifeTimer);
-            this.image.src = `img/${this.species}/dead.png`;
             this.addLogEntry(`${this.name} ran away due to neglect 😢`);
         }
+    }
+
+    setBusy(value) {
+        this.busy = value;
+        this.pushUpdate();
     }
 
     delete() {
@@ -104,7 +85,6 @@ class Tamagotchi {
         this.addLogEntry(`${this.name} was deleted.`);
     }
 
-    // Logging
     addLogEntry(text) {
         const timestamp = new Date().toLocaleTimeString();
         const entry = { text, timestamp };
@@ -119,7 +99,6 @@ class Tamagotchi {
         return [...this.logEntries];
     }
 
-    // Status
     getStatus() {
         return {
             id: this.id,
@@ -131,7 +110,8 @@ class Tamagotchi {
             maxEnergy: MAX_ENERGY,
             maxFullness: MAX_FULLNESS,
             maxHappiness: MAX_HAPPINESS,
-            alive: this.alive
+            alive: this.alive,
+            busy: this.busy
         };
     }
 
@@ -141,7 +121,3 @@ class Tamagotchi {
         }
     }
 }
-
-window.findUniqueName = findUniqueName;
-window.speciesList = speciesList;
-window.Tamagotchi = Tamagotchi;
