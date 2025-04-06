@@ -1,44 +1,6 @@
-const imageMap = {
-  cat: "tamagochi-1.png",
-  dog: "tamagochi-2.png",
-  rabbit: "tamagochi-3.png",
-  parrot: "tamagochi-4.png",
-};
+import { imageMap, nameSuggestions, logActivity, getElapsedTime } from "./utils.js";
 
-const nameSuggestions = [
-  "Tamagotchi", "Mametchi", "Kuchipatchi", "Memetchi", "Gozarutchi",
-  "Lovelitchi", "Maskutchi", "Nyatchi", "Sebiretchi", "Mimitchi"
-];
-
-function populateNameOptions() {
-  const nameSelect = document.getElementById("pet-name");
-  if (!nameSelect) return;
-  nameSelect.innerHTML = '<option value="">-- Select a pet name --</option>';
-  nameSuggestions.forEach((name) => {
-    const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    nameSelect.appendChild(option);
-  });
-}
-
-function logActivity(message, type = "default") {
-  const logList = document.getElementById("log-list");
-  const logItem = document.createElement("li");
-  const time = new Date().toLocaleString();
-  logItem.innerHTML = `<strong>[${time}]</strong> ${message}`;
-  logItem.classList.add("log-item", type);
-  logList.appendChild(logItem);
-}
-
-function getElapsedTime(startTime) {
-  const totalSeconds = Math.floor((Date.now() - startTime) / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return minutes > 0 ? `${minutes} min ${seconds} sec` : `${seconds} sec`;
-}
-
-class Animal {
+export class Animal {
   constructor(name, animalType) {
     this.name = name || Animal.generateName();
     this.animalType = animalType;
@@ -69,7 +31,6 @@ class Animal {
 
     this.petElement = document.createElement("li");
     this.petElement.classList.add("pet-card", `${this.animalType}-bg`);
-
     this.petElement.innerHTML = `
       <img src="images/${imageFile}" alt="${this.animalType}" class="pet-image" />
       <h3>${this.name} (${this.animalType})</h3>
@@ -116,7 +77,6 @@ class Animal {
       this.fullness = Math.max(this.fullness - 5, 0);
       this.happiness = Math.max(this.happiness - 5, 0);
       this.updateUI();
-
       if (this.energy === 0 || this.fullness === 0 || this.happiness === 0) {
         this.runAway();
       }
@@ -166,7 +126,6 @@ class Animal {
     const activityMessage = `${actionText} (${elapsed})`;
     this.activities.push(activityMessage);
     logActivity(`${this.name} ${actionText.toLowerCase()}`, logType);
-
     const petLogItem = document.createElement("li");
     petLogItem.textContent = activityMessage;
     petLogItem.classList.add("log-item", logType);
@@ -180,7 +139,7 @@ class Animal {
   }
 }
 
-class Game {
+export class Game {
   static pets = {};
 
   static addPet(name, animalType) {
@@ -206,12 +165,10 @@ class Game {
       clearInterval(pet.decayInterval);
       if (pet.petElement) pet.petElement.remove();
     });
-
     Game.pets = {};
     document.getElementById("pet-list").innerHTML = "";
     document.getElementById("log-list").innerHTML = "";
     document.getElementById("falling-muffins-container").innerHTML = "";
-
     const modal = document.getElementById("trophyModal");
     if (modal) {
       modal.classList.add("hidden");
@@ -243,24 +200,3 @@ function showTrophyCelebration(winnerName) {
   }, 5000);
 }
 
-populateNameOptions();
-
-document.getElementById("add-pet").addEventListener("click", () => {
-  const name = document.getElementById("pet-name").value;
-  const animalType = document.getElementById("pet-type").value;
-  Game.addPet(name, animalType);
-});
-
-document.getElementById("reset-game").addEventListener("click", () => {
-  Game.resetGame();
-});
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const topLayer = document.querySelector('.topLayer');
-    if (topLayer) {
-      topLayer.style.animationPlayState = 'paused';
-      topLayer.style.opacity = '0';
-    }
-  }, 30000);
-});

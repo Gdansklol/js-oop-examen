@@ -414,3 +414,7 @@ background: #0c044d;
 animation: animateTopLayer 10s linear infinite;
 animation-play-state: running;
 }
+
+.pet-log.hidden {
+  display: none;
+}

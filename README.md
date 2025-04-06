@@ -39,6 +39,8 @@ Spelet är byggt i JavaScript med objektorienterad programmering.
   - Först Godkänt, sen Väl Godkänt
   - Tänkte ut klassstruktur och logik innan kodning
 
+  - SoC (Separation of concerns)
+
 ---
 
 ## Utmaningar
