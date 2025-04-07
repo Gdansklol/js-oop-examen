@@ -75,4 +75,4 @@ Spelet är byggt i JavaScript med objektorienterad programmering.
 
 ## Deploy
 
-link : ()
+link : (https://gdansklol.github.io/js-oop-examen/)
