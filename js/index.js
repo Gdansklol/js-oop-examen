@@ -1,5 +1,5 @@
 import { Tamagotchi } from './Tamagotchi.js';
-import { TamagotchiWrapper } from './TamaGotchiWrapper.js';
+import { TamagotchiWrapper } from './TamagotchiWrapper.js';
 import { findUniqueName, speciesList } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,3 +1,5 @@
+// TamagotchiImage.js
+
 export class TamagotchiImage {
     constructor(species, getStatus) {
         this.species = species;
