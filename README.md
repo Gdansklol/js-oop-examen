@@ -76,3 +76,103 @@ Spelet är byggt i JavaScript med objektorienterad programmering.
 ## Deploy
 
 link : (https://gdansklol.github.io/js-oop-examen/)
+
+```mermaid
+classDiagram
+    class Tamagotchi {
+        +id
+        +name
+        +species
+        +age
+        +energy
+        +fullness
+        +happiness
+        +alive
+        +busy
+        +animations
+        +getStatus()
+        +setBusy(bool)
+        +eat()
+        +play()
+        +nap()
+        +delete()
+        +getLog()
+        +pushUpdate()
+    }
+
+    class TamagotchiWrapper {
+        +id
+        +tamagotchi
+        +title : TitleRow
+        +image : TamagotchiImage
+        +statusPanel : StatusPanel
+        +actionRow : ButtonRow
+        +utilityRow : ButtonRow
+        +logContainer : LogContainer
+        +onEat()
+        +onPlay()
+        +onNap()
+        +onDelete()
+        +onLog()
+    }
+
+    class TamagotchiImage {
+        +setImage(srcOrInternal)
+        +getElement()
+    }
+
+    class StatusPanel {
+        +startStatusUpdates()
+        +update(status)
+        +getElement()
+    }
+
+    class StatusBar {
+        +update(value)
+        +getElement()
+    }
+
+    class StatusLabel {
+        +update(value)
+        +getElement()
+    }
+
+    class ButtonRow {
+        +setAllEnabled(bool)
+        +getButton(label)
+        +getElement()
+    }
+
+    class LogContainer {
+        +toggle()
+        +getElement()
+        +startLogMonitor()
+    }
+
+    class TitleRow {
+        +getElement()
+    }
+
+    class AnimationPlayer {
+        <<static>>
+        +getAnimations(species)
+        +animateImage(imgElement, animation)
+    }
+
+%% Relationships
+    TamagotchiWrapper --> Tamagotchi
+    TamagotchiWrapper --> TamagotchiImage
+    TamagotchiWrapper --> StatusPanel
+    TamagotchiWrapper --> ButtonRow : actionRow
+    TamagotchiWrapper --> ButtonRow : utilityRow
+    TamagotchiWrapper --> LogContainer
+    TamagotchiWrapper --> TitleRow
+    TamagotchiWrapper --> AnimationPlayer : uses animations
+    Tamagotchi --> AnimationPlayer : getAnimations()
+
+    StatusPanel --> StatusLabel : age
+    StatusPanel --> StatusBar : energy
+    StatusPanel --> StatusBar : fullness
+    StatusPanel --> StatusBar : happiness
+
+```
