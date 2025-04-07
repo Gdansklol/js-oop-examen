@@ -34,7 +34,8 @@ Spelet är byggt i JavaScript med objektorienterad programmering.
 - Parallellt arbete: Grupprojekt (Hakim Livs) + Eget projekt (Tamagotchi)
 -  Fokusväxling:
   - Prioritering beroende på tid och behov
-  - Växlade mellan produktsida/inloggning och spelprojekt
+  - Växlade mellan gruppprojektet och spelprojektet
+  
 -  Planering:
   - Först Godkänt, sen Väl Godkänt
   - Tänkte ut klassstruktur och logik innan kodning
