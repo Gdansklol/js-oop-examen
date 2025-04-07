@@ -1,4 +1,3 @@
-/* Layout and base styles */
 body {
     font-family: sans-serif;
     background-color: #f0f0f0;
@@ -39,21 +38,18 @@ body {
     align-items: center;
 }
 
-/* Name title */
 .tamagotchi-name {
     font-weight: bold;
     margin-bottom: 0.5rem;
     text-align: center;
 }
 
-/* Image */
 .tamagotchi img {
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
 }
 
-/* Status panel */
 .status-panel {
     width: 100%;
     margin-bottom: 1rem;
@@ -86,7 +82,6 @@ body {
     transition: width 0.3s ease;
 }
 
-/* Buttons */
 .button-row {
     display: flex;
     justify-content: space-between;
@@ -102,7 +97,6 @@ body {
     cursor: pointer;
 }
 
-/* Log view */
 .log-container {
     margin-top: 0.5rem;
     width: 100%;
