@@ -1,4 +1,10 @@
 export class StatusBar {
+    //<div class="status-line">
+    //  <label>${label}:</label>
+    //  <div class="bar">
+    //    <div id=${id} class="bar-fill" style="width:${percent}"></div>
+    //  </div>
+    //</div>
     constructor(label, id) {
         this.id = id;
 

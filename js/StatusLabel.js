@@ -1,4 +1,8 @@
 export class StatusLabel {
+    //<div class="status-line">
+    //  <label>${label}:</label>
+    //  <span id=${id}>${value}</span>
+    // </div>
     constructor(label, id) {
         this.id = id;
 

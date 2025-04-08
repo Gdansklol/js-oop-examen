@@ -1,4 +1,5 @@
 export class TitleRow {
+    //<div class="tamagotchi-name">${name} the ${species}</div>
     constructor(name, species) {
         this.element = document.createElement('div');
         this.element.className = 'tamagotchi-name';

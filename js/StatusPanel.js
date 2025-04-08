@@ -32,6 +32,9 @@ export class StatusPanel {
             get('fullness').style.width = `${(status.fullness / status.maxFullness) * 100}%`;
             get('energy').style.width = `${(status.energy / status.maxEnergy) * 100}%`;
             get('happiness').style.width = `${(status.happiness / status.maxHappiness) * 100}%`;
+            if (!status.alive) {
+                this.stopStatusUpdates();
+            }
         }, 1000);
     }
 

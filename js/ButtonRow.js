@@ -50,6 +50,10 @@ export class ButtonRow {
 
             const shouldDisable = !status.alive || status.busy;
             this.setAllEnabled(!shouldDisable);
+
+            if (!status.alive) {
+                this.stopStatusMonitor();
+            }
         }, 1000);
     }
 

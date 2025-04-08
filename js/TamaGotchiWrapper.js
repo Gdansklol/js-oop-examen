@@ -83,6 +83,9 @@ export class TamagotchiWrapper {
     }
 
     onDelete() {
+        this.actionRow.stopStatusMonitor();
+        this.statusPanel.stopStatusUpdates();
+        this.image.stopMonitoring();
         this.tamagotchi.delete();
         this.root.remove();
         this.tamagotchis.delete(this.id);

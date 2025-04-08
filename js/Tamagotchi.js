@@ -26,6 +26,7 @@ export class Tamagotchi {
 
     startLifeTimer() {
         this.lifeTimer = setInterval(() => {
+            console.log(this.name);
             if (!this.alive) return;
 
             this.age += 1;
@@ -81,6 +82,9 @@ export class Tamagotchi {
 
     delete() {
         clearInterval(this.lifeTimer);
+        this.energy = 0;
+        this.happiness = 0;
+        this.fullness = 0;
         this.alive = false;
         this.addLogEntry(`${this.name} was deleted.`);
     }
